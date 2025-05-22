@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "dist-electron/main.js",
+  "main": "dist-electron/main.cjs",
   "scripts": {
     "dev": "vite",
-    "dev:electron": "concurrently \"vite\" \"npm:electron\"",
-    "electron": "tsc -p tsconfig.node.json && electron dist-electron/main.js",
+    "dev:electron": "concurrently \"vite\" \"cross-env NODE_ENV=development npm run electron\"",
+    "electron": "tsc -p tsconfig.node.json && if exist dist-electron\\main.cjs del dist-electron\\main.cjs && if exist dist-electron\\main.js ren dist-electron\\main.js main.cjs && electron dist-electron\\main.cjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -29,6 +29,7 @@
     }
   },
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -38,6 +39,7 @@
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "electron": "^36.2.1",
     "electron-builder": "^26.0.12",
     "eslint": "^9.25.0",
@@ -49,4 +51,3 @@
     "vite": "^6.3.5"
   }
 }
- 
