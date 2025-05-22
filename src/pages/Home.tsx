@@ -1,11 +1,11 @@
-const Login = () => {
+const Home = () => {
     return (
       <div>
-        <h1>Login Page</h1>
-        <p>Enter credentials to log in</p>
+        <h1>Welcome to the Church Manager</h1>
+        <p>This is your dashboard home screen.</p>
       </div>
     );
   };
   
-  export default Login;
+  export default Home;
   
