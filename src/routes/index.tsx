@@ -1,5 +1,6 @@
 import type { Role } from '../types/roles';
 import type { ReactNode } from 'react';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -21,15 +22,67 @@ export interface AppRoute {
 }
 
 export const routes: AppRoute[] = [
-  { path: '/', element: <Home /> },
+  { path: '/', element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    )
+  },
   { path: '/login', element: <Login /> },
-  { path: '/people', element: <PeopleDashboard />, roles: ['admin', 'member'] },
-  { path: '/people/add-member', element: <AddMember />, roles: ['admin'] },
-  { path: '/people/add-visitor', element: <AddVisitor />, roles: ['admin', 'member'] },
-  { path: '/attendance', element: <AttendanceDashboard />, roles: ['admin', 'member'] },
-  { path: '/offering', element: <OfferingDashboard />, roles: ['admin'] },
-  { path: '/rewards', element: <RewardPointsDisplay />, roles: ['admin', 'member'] },
-  { path: '/account', element: <MyAccount /> },
-  { path: '/account/admin', element: <Admin />, roles: ['admin'] },
-  { path: '/account/settings', element: <Settings /> },
+
+  { path: '/people', element: (
+      <ProtectedRoute allowedRoles={['admin', 'member']}>
+        <PeopleDashboard />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/people/add-member', element: (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <AddMember />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/people/add-visitor', element: (
+      <ProtectedRoute allowedRoles={['admin', 'member']}>
+        <AddVisitor />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/attendance', element: (
+      <ProtectedRoute allowedRoles={['admin', 'member']}>
+        <AttendanceDashboard />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/offering', element: (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <OfferingDashboard />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/rewards', element: (
+      <ProtectedRoute allowedRoles={['admin', 'member']}>
+        <RewardPointsDisplay />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/account', element: (
+      <ProtectedRoute>
+        <MyAccount />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/account/admin', element: (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <Admin />
+      </ProtectedRoute>
+    )
+  },
+  { path: '/account/settings', element: (
+      <ProtectedRoute>
+        <Settings />
+      </ProtectedRoute>
+    )
+  },
 ];
+
